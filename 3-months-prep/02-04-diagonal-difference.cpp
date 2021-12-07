@@ -21,7 +21,7 @@ string join(const vector<T>, const char);
 template <typename T>
 void printVector(string varname, const vector<T> words, const char delim=' ');
 template <typename T>
-void printGridVector(string varname, const vector<vector<T>> grid, const char delim=' ');
+void printVectorTable(string varname, const vector<vector<T>> grid, const char delim=' ');
 
 
 /*	Calculate the absolute difference between the sums of the diagonals of 'arr' */
@@ -46,7 +46,7 @@ int main()
 	for (int i = 0; i != input_values.size(); ++i) {
 		vector<vector<int>> &loop_values = input_values[i];
 		int loop_check = input_checks[i];
-		printGridVector("loop_values", loop_values);
+		printVectorTable("loop_values", loop_values);
 		cerr << "loop_check=(" << loop_check << ")\n";
 
 		int result = diagonalDifference(loop_values);
@@ -121,7 +121,7 @@ void printVector(string varname, const vector<T> words, const char delim) {
 	//	}}}
 
 template <typename T>
-void printGridVector(string varname, const vector<vector<T>> grid, const char delim) {
+void printVectorTable(string varname, const vector<vector<T>> grid, const char delim) {
 	//	{{{
 	cerr << varname << ":\n";
 	for (int i = 0; i != grid.size(); ++i) {
