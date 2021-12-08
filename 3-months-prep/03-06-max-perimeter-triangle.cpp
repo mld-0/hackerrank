@@ -28,26 +28,28 @@ template <typename A, typename B>
 void printMap(string varname, const map<A,B> m, const char delim=' ');
 
 //	LINK: https://stackoverflow.com/questions/37368787/c-sort-one-vector-based-on-another-one
+/* 	Fill the zipped vector with pairs consisting of the corresponding elements of a and b. (This assumes that the vectors have equal length) */
 template <typename A, typename B>
 void zip(const std::vector<A> &a, const std::vector<B> &b, std::vector<std::pair<A,B>> &zipped)
-	/* 	Fill the zipped vector with pairs consisting of the corresponding elements of a and b. (This assumes that the vectors have equal length) */
+	//	{{{
 {
-    for(size_t i=0; i<a.size(); ++i)
-    {
+    for (size_t i = 0; i < a.size(); ++i) {
         zipped.push_back(std::make_pair(a[i], b[i]));
     }
 }
+	//	}}}
 
+/* Write the first and second element of the pairs in the given zipped vector into a and b. (This assumes that the vectors have equal length) */
 template <typename A, typename B>
 void unzip(const std::vector<std::pair<A, B>> &zipped, std::vector<A> &a, std::vector<B> &b)
-	/* Write the first and second element of the pairs in the given zipped vector into a and b. (This assumes that the vectors have equal length) */
+	//	{{{
 {
-    for(size_t i=0; i<a.size(); i++)
-    {
+    for (size_t i = 0; i < a.size(); i++) {
         a[i] = zipped[i].first;
         b[i] = zipped[i].second;
     }
 }
+	//	}}}
 
 bool isValidTriangle(tuple<int,int,int> x)
 {
@@ -58,8 +60,8 @@ bool isValidTriangle(tuple<int,int,int> x)
 }
 
 //	LINK: https://www.geeksforgeeks.org/make-combinations-size-k/
+/*	Fill 'result_indexes' with all combinations of length 'k' in range [left, n] */
 void _makeCombinationTripletsUtil(vector<vector<int>> &result_indexes, vector<int> &temp, int n, int left, int k)
-	/*	Fill 'result_indexes' with all combinations of length 'k' in range [left, n] */
 {
     if (k == 0) {
         result_indexes.push_back(temp);
@@ -72,8 +74,8 @@ void _makeCombinationTripletsUtil(vector<vector<int>> &result_indexes, vector<in
     }
 }
 
+/* 	Get all unique combinations of lengths from 'sticks' that describe a valid triangle */
 vector<tuple<int,int,int>> getValidTriplets(vector<int> sticks)
-	/* 	Get all unique combinations of lengths from 'sticks' that describe a valid triangle */
 {
 	//	Get all combinations of length 3 from [ 0, sticks.size()-1 ] as 'result_indexes'
 	vector<vector<int>> result_indexes;
@@ -96,7 +98,7 @@ vector<tuple<int,int,int>> getValidTriplets(vector<int> sticks)
 }
 
 
-vector<int> maximumPerimeterTriangle(vector<int> sticks)
+vector<int> maximumPerimeterTriangle_i(vector<int> sticks)
 {
 	vector<tuple<int,int,int>> triplet_lengths = getValidTriplets(sticks);
 	//for (auto const &x: triplet_lengths) {
@@ -114,9 +116,7 @@ vector<int> maximumPerimeterTriangle(vector<int> sticks)
 		triplet_perimeters[i] = length;
 	}
 
-
 	//	TODO: 2021-12-08T15:42:50AEDT _hackerrank, C++, 03-06-max-perimeter, sorting multiple vectors together without using 'zip()/unzip()' functions sourced online
-
 	//	Sort (triplet_perimeters, triplets_lengths)
 	vector<pair<int,tuple<int,int,int>>> zipped;
 	zip(triplet_perimeters, triplet_lengths, zipped);
@@ -128,7 +128,9 @@ vector<int> maximumPerimeterTriangle(vector<int> sticks)
 				} else {
 					return a.first > b.first;
 				}
-			});
+		});
+	//	This is same as default behaviour(?) 
+	//stable_sort(begin(zipped), end(zipped), greater_equal<>());
 
 	//for (auto const &x: zipped) {
 	//	cerr << x.first << ", " << get<0>(x.second) << "," << get<1>(x.second) << "," << get<2>(x.second) << "\n";
@@ -138,6 +140,12 @@ vector<int> maximumPerimeterTriangle(vector<int> sticks)
 
 	tuple<int,int,int> result_triplet_lengths = triplet_lengths[0];
 	return { get<2>(result_triplet_lengths), get<1>(result_triplet_lengths), get<0>(result_triplet_lengths) };
+}
+
+//	TODO: 2021-12-08T20:52:01AEDT _hackerrank, 03-06-max-perimeter, review simple solution (see discussion)
+vector<int> maximumPerimeterTriangle_ii(vector<int> sticks)
+{
+	return { -1 };
 }
 
 
@@ -163,7 +171,7 @@ int main()
 		printVector("sticks", sticks);
 		printVector("check", check);
 
-		vector<int> result = maximumPerimeterTriangle(sticks);
+		vector<int> result = maximumPerimeterTriangle_i(sticks);
 		printVector("result", result);
 
 		assert (result == check);
