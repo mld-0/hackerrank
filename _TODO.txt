@@ -1,1 +1,2 @@
 TODO: 2021-11-03T21:00:37AEDT _hackerrank, assign course/week/number to each existing script
+TODO: 2021-12-08T15:42:50AEDT _hackerrank, C++, 03-06-max-perimeter, sorting multiple vectors together without using 'zip()/unzip()' functions sourced online
