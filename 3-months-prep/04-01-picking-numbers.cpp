@@ -4,28 +4,88 @@
 //	}}}1
 #include <iostream>
 #include <iomanip>
-#include <vector>
-#include <string>
-#include <algorithm>
-#include <numeric>
-#include <map>
-#include <tuple>
-#include <set>
 #include <sstream>
 #include <climits>
 #include <cassert>
+#include <vector>
+#include <string>
+#include <map>
+#include <tuple>
+#include <set>
+#include <algorithm>
+#include <numeric>
 using namespace std;
 //	{{{2
-
-string ltrim(const string &);
-string rtrim(const string &);
-vector<string> split(const string &, const char);
+//	ltrim(), rtrim(), split(), join(), printVector(), printMap()
+//	{{{
+string ltrim(const string &str) {
+//	{{{
+    string s(str);
+    auto it = std::find_if(s.begin(), s.end(),
+                    [](char c) {
+                        return !std::isspace<char>(c, std::locale::classic());
+                    });
+    s.erase(s.begin(), it);
+    return s;
+}
+//	}}}
+string rtrim(const string &str) {
+//	{{{
+    string s(str);
+    auto it = std::find_if(s.rbegin(), s.rend(),
+                    [](char c) {
+                        return !std::isspace<char>(c, std::locale::classic());
+                    });
+    s.erase(it.base(), s.end());
+    return s;
+}
+//	}}}
+vector<string> split(const string &str, const char delim=' ') {
+//	{{{
+    vector<string> tokens;
+    string::size_type start = 0;
+    string::size_type end = 0;
+    while ((end = str.find(delim, start)) != string::npos) {
+        tokens.push_back(str.substr(start, end - start));
+        start = end + 1;
+    }
+    tokens.push_back(str.substr(start));
+    return tokens;
+}
+//	}}}
 template <typename T>
-string join(const vector<T>, const char);
+string join(const vector<T> words, const char delim=' ') {
+	//	{{{
+	string result = "";
+	for (int i = 0; i < words.size(); ++i) {
+		result += std::to_string(words[i]);
+		if (i != words.size()-1) { result += delim; }
+	}
+	return result;
+}
+	//	}}}
 template <typename T>
-void printVector(string varname, const vector<T> words, const char delim=' ');
+void printVector(string varname, const vector<T> words, const char delim=' ') {
+	//	{{{
+	string vector_str = join(words, delim);
+	cerr << varname << "=(" << vector_str << ")\n";
+}
+	//	}}}
 template <typename A, typename B>
-void printMap(string varname, const map<A,B> m, const char delim=' ');
+void printMap(string varname, const map<A,B> m, const char delim=' ') {
+	//	{{{
+	string m_str = "";
+	for (auto const &x: m) {
+		m_str += std::to_string(x.first);
+		m_str += ":";
+		m_str += std::to_string(x.second);
+		m_str += delim;
+	}
+	m_str.pop_back();
+	cerr << varname << "=(" << m_str << ")\n";
+}
+	//	}}}
+//	}}}
 
 
 bool subarray_difference_valid(const vector<int> values)
@@ -133,78 +193,4 @@ int main()
 	return 0;
 }
 
-
-string ltrim(const string &str) {
-//	{{{
-    string s(str);
-    auto it = std::find_if(s.begin(), s.end(),
-                    [](char c) {
-                        return !std::isspace<char>(c, std::locale::classic());
-                    });
-    s.erase(s.begin(), it);
-    return s;
-}
-//	}}}
-
-string rtrim(const string &str) {
-//	{{{
-    string s(str);
-    auto it = std::find_if(s.rbegin(), s.rend(),
-                    [](char c) {
-                        return !std::isspace<char>(c, std::locale::classic());
-                    });
-    s.erase(it.base(), s.end());
-    return s;
-}
-//	}}}
-
-vector<string> split(const string &str, const char delim) {
-//	{{{
-    vector<string> tokens;
-    string::size_type start = 0;
-    string::size_type end = 0;
-    //while ((end = str.find(" ", start)) != string::npos) {
-    while ((end = str.find(delim, start)) != string::npos) {
-        tokens.push_back(str.substr(start, end - start));
-        start = end + 1;
-    }
-    tokens.push_back(str.substr(start));
-    return tokens;
-}
-//	}}}
-
-template <typename T>
-string join(const vector<T> words, const char delim) {
-	//	{{{
-	string result = "";
-	for (int i = 0; i < words.size(); ++i) {
-		result += to_string(words[i]);
-		if (i != words.size()-1) { result += delim; }
-	}
-	return result;
-}
-	//	}}}
-
-template <typename T>
-void printVector(string varname, const vector<T> words, const char delim) {
-	//	{{{
-	string vector_str = join(words, delim);
-	cerr << varname << "=(" << vector_str << ")\n";
-}
-	//	}}}
-
-template <typename A, typename B>
-void printMap(string varname, const map<A,B> m, const char delim) {
-	//	{{{
-	string m_str = "";
-	for (auto const &x: m) {
-		m_str += to_string(x.first);
-		m_str += ":";
-		m_str += to_string(x.second);
-		m_str += delim;
-	}
-	m_str.pop_back();
-	cerr << varname << "=(" << m_str << ")\n";
-}
-	//	}}}
 
