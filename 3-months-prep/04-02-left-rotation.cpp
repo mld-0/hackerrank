@@ -102,7 +102,6 @@ vector<int> rotateLeft_i(int d, vector<int> arr)
 	for (int i = 0; i < d; ++i) {
 		result[i_result++] = arr[i];
 	}
-
 	return result;
 }
 
