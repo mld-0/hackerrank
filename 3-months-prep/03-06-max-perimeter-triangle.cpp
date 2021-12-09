@@ -27,29 +27,6 @@ void printVector(string varname, const vector<T> words, const char delim=' ');
 template <typename A, typename B>
 void printMap(string varname, const map<A,B> m, const char delim=' ');
 
-//	LINK: https://stackoverflow.com/questions/37368787/c-sort-one-vector-based-on-another-one
-/* 	Fill the zipped vector with pairs consisting of the corresponding elements of a and b. (This assumes that the vectors have equal length) */
-template <typename A, typename B>
-void zip(const std::vector<A> &a, const std::vector<B> &b, std::vector<std::pair<A,B>> &zipped)
-	//	{{{
-{
-    for (size_t i = 0; i < a.size(); ++i) {
-        zipped.push_back(std::make_pair(a[i], b[i]));
-    }
-}
-	//	}}}
-
-/* Write the first and second element of the pairs in the given zipped vector into a and b. (This assumes that the vectors have equal length) */
-template <typename A, typename B>
-void unzip(const std::vector<std::pair<A, B>> &zipped, std::vector<A> &a, std::vector<B> &b)
-	//	{{{
-{
-    for (size_t i = 0; i < a.size(); i++) {
-        a[i] = zipped[i].first;
-        b[i] = zipped[i].second;
-    }
-}
-	//	}}}
 
 bool isValidTriangle(tuple<int,int,int> x)
 {
@@ -116,27 +93,19 @@ vector<int> maximumPerimeterTriangle_i(vector<int> sticks)
 		triplet_perimeters[i] = length;
 	}
 
-	//	TODO: 2021-12-08T15:42:50AEDT _hackerrank, C++, 03-06-max-perimeter, sorting multiple vectors together without using 'zip()/unzip()' functions sourced online
 	//	Sort (triplet_perimeters, triplets_lengths)
-	vector<pair<int,tuple<int,int,int>>> zipped;
-	zip(triplet_perimeters, triplet_lengths, zipped);
-
-	sort(begin(zipped), end(zipped), 
-			[&](const auto &a, const auto &b) {
-				if (a.first == b.first) {
-					return a.second > b.second;
-				} else {
-					return a.first > b.first;
-				}
-		});
-	//	This is same as default behaviour(?) 
-	//stable_sort(begin(zipped), end(zipped), greater_equal<>());
-
-	//for (auto const &x: zipped) {
-	//	cerr << x.first << ", " << get<0>(x.second) << "," << get<1>(x.second) << "," << get<2>(x.second) << "\n";
-	//}
-
-	unzip(zipped, triplet_perimeters, triplet_lengths);
+	vector<pair<int,tuple<int,int,int>>> zipped(triplet_perimeters.size());
+	assert (triplet_perimeters.size() == triplet_lengths.size());
+	for (int i = 0; i < triplet_perimeters.size(); ++i) {
+		pair<int,tuple<int,int,int>> temp = make_pair( triplet_perimeters[i], triplet_lengths[i] );
+		zipped[i] = temp;
+	}
+	sort(zipped.begin(), zipped.end(), greater<>());
+	for (int i = 0; i < zipped.size(); ++i) {
+		pair<int,tuple<int,int,int>> temp = zipped[i];
+		triplet_perimeters[i] = temp.first;
+		triplet_lengths[i] = temp.second;
+	}
 
 	tuple<int,int,int> result_triplet_lengths = triplet_lengths[0];
 	return { get<2>(result_triplet_lengths), get<1>(result_triplet_lengths), get<0>(result_triplet_lengths) };
