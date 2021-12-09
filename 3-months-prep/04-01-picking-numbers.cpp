@@ -82,7 +82,7 @@ int pickingNumbers_ii(vector<int> a)
 	}
 	stable_sort(nums.begin(), nums.end());
 
-	//	possible_values[ {a[,b]} ] = count
+	//	possible_values[ {a[,b]} ] = count(a[,b])
 	map<vector<int>,int> possible_values;
 	int previous = INT_MIN;
 	vector<int> k;
