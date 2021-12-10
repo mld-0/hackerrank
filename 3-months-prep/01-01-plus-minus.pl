@@ -7,7 +7,6 @@ use strict;
 use warnings;
 use Carp::Assert;
 use Capture::Tiny 'capture_stdout';
-use Test;
 use v5.032;
 #	{{{2
 sub ltrim {
@@ -27,11 +26,8 @@ sub rtrim {
 
 sub plusMinus {
 	my @arr = @{$_[0]};
-	$_[0][0] = 0;
-
 	my $count_positive = 0;
 	my $count_negative = 0;
-
 	foreach my $x (@arr) {
 		if ($x > 0) {
 			$count_positive++;
@@ -39,13 +35,10 @@ sub plusMinus {
 			$count_negative++;
 		}
 	}
-
 	my $count_zero = scalar(@arr) - ($count_positive + $count_negative);
-
 	my $ratio_positive = $count_positive / scalar(@arr);
 	my $ratio_negative = $count_negative / scalar(@arr);
 	my $ratio_zero = $count_zero / scalar(@arr);
-
 	printf("%.6f\n%.6f\n%.6f\n", $ratio_positive, $ratio_negative, $ratio_zero);
 }
 
