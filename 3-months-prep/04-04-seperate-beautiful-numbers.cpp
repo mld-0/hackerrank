@@ -101,7 +101,7 @@ bool check_valid(string number, string trailing)
 	return check_valid(next_number, next_trailing);
 }
 
-void seperateNumbers(string s)
+void separateNumber(string s)
 {
 	for (int k = 1; k < s.size()-1; ++k) {
 		string leading = s.substr(0, k);
@@ -137,7 +137,7 @@ int main()
 			//cerr << "check=(" << check << ")\n";
 
 			ss.str(string());
-			seperateNumbers(s);
+			separateNumber(s);
 			string result = rtrim(ss.str());
 			cerr << "result=(" << result << ")\n";
 
