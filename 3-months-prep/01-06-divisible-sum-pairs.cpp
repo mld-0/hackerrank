@@ -27,8 +27,6 @@ int divisibleSumPairs(int n, int k, vector<int> ar)
 			int sum = a + b;
 			int mod = sum % k;
 
-			cerr << "a=(" << a << "), b=(" << b << "), sum=(" << sum << "), mod=(" << mod << ")\n";
-
 			if (mod == 0) {
 				result_count++;
 			}
