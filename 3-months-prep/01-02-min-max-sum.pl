@@ -7,7 +7,7 @@ use strict;
 use warnings;
 use Carp::Assert;
 use Capture::Tiny 'capture_stdout';
-use v5.032;
+use v5.026;
 #	{{{2
 sub ltrim {
 	#	{{{
