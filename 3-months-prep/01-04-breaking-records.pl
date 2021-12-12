@@ -35,7 +35,7 @@ for (my $i = 0; $i < scalar(@{$input_values}); ++$i) {
 
 	my @result = breakingRecords $scores;
 	say "result=(@result)";
-	assert (@result ~~ @check);
+	assert ("@result" eq "@check");
 
 	say STDERR "";
 }
