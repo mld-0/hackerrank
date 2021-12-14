@@ -1,11 +1,7 @@
-#!/usr/bin/env perl
-#   VIM SETTINGS: {{{3
-#   vim: set tabstop=4 modeline modelines=10 foldmethod=marker:
-#   vim: set foldlevel=2 foldcolumn=2:
-#   }}}1
 from collections import Counter
+from typing import List
 
-def lonelyinteger(a):
+def lonelyinteger(a: List[int]) -> int:
     c = Counter(a)
     for k, v in c.items():
         if v == 1:
