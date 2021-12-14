@@ -1,5 +1,7 @@
+from typing import List
+import math
 
-magic_squares = [ 
+possible_magic_squares = [ 
     [[8,1,6],[3,5,7],[4,9,2]],
     [[6,1,8],[7,5,3],[2,9,4]], 
     [[4,9,2],[3,5,7],[8,1,6]],
@@ -29,7 +31,8 @@ def is_magic_square(square):
 
 def square_transform_cost(square_to, square_from):
     assert len(square_to) == len(square_from), "Dimensions mismatch"
-    assert len(square_to[0]) == len(square_from[0]), "Dimensions mismatch"
+    for i in range(len(square_to)):
+        assert len(square_to[i]) == len(square_from[i]), "Dimensions mismatch"
 
     rows = len(square_to)
     cols = len(square_to[0])
@@ -42,16 +45,24 @@ def square_transform_cost(square_to, square_from):
     return distance
             
 
+def formingMagicSquare(s):
+    result = math.inf
+    for square in possible_magic_squares:
+        trial = square_transform_cost(square, s)
+        result = min(trial, result)
+    return result
 
-for square in magic_squares:
-    result = is_magic_square(square)
-    print(result)
-print()
 
-input_square = [[4,9,2],[3,5,7],[8,1,5]]
+input_values = [ [[4,9,2],[3,5,7],[8,1,5]], [[4,8,2],[4,5,7],[6,1,6]], ]
+input_checks = [ 1, 4, ]
 
-for square in magic_squares:
-    distance = square_transform_cost(square, input_square)
-    print(distance)
-print()
+for square in possible_magic_squares:
+    assert (is_magic_square(square)), "Magic Square check failed"
+
+for s, check in zip(input_values, input_checks):
+    print("s=(%s)" % s)
+    result = formingMagicSquare(s)
+    print("result=(%s)" % result)
+    assert (result == check), "Check comparison failed"
+    print()
 
