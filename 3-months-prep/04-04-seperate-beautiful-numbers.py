@@ -1,10 +1,5 @@
-#!/usr/bin/env python3
-import math
-import os
-import random
-import re
-import sys
 import io
+from contextlib import redirect_stdout
 
 def check_valid(number: str, trailing: str):
     if len(trailing) == 0:
@@ -25,20 +20,18 @@ def seperateNumbers(s: str):
     print("NO")
 
 
-if __name__ == '__main__':
-    _stdout = sys.stdout
-    sys.stdout = io.TextIOWrapper(io.BytesIO(), sys.stdout.encoding)
+input_values = [ "1234", "91011", "99100", "101103", "010203", "13", "1", ]
+input_checks = [ "YES 1", "YES 9", "YES 99", "NO", "NO", "NO", "NO", ]
 
-    input_values = [ "1234", "91011", "99100", "101103", "010203", "13", "1", ]
-    expected_output = "YES 1\nYES 9\nYES 99\nNO\nNO\nNO\nNO\n"
-    for value in input_values:
-        seperateNumbers(value)
+for s, check in zip(input_values, input_checks):
+    print("s=(%s)" % s)
 
-    sys.stdout.seek(0)
-    result = sys.stdout.read()
-    sys.stdout.close()
-    sys.stdout = _stdout
+    ss = io.StringIO()
+    with redirect_stdout(ss):
+        seperateNumbers(s)
+    result = ss.getvalue().rstrip()
 
     print("result=(%s)" % result)
-    assert result == expected_output, "Check comparison failed"
-    
+    assert (result == check), "Check comparison failed"
+    print()
+
