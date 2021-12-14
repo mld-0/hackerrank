@@ -1,7 +1,6 @@
 from collections import Counter
 
-
-def isValid(s):
+def isValid_i(s):
     #   s_counts[letter] = count-value
     s_counts = Counter(s)
     #   s_counts_counts[count-value] = frequency-of-count-value
@@ -36,7 +35,7 @@ def isValid_ii(s):
             hash2[hash[item]]+=1
         else:
             hash2[hash[item]]=1
-    print("hash=(%s), hash2=(%s)" % (hash, hash2))
+    #print("hash=(%s), hash2=(%s)" % (hash, hash2))
     if len(hash2)==1:
         return('YES')
     if len(hash2)>2:
@@ -50,12 +49,16 @@ def isValid_ii(s):
             return('NO')
 
 
+test_functions = [ isValid_i, isValid_ii, ]
+
 input_values = [ "aabbc", "aabbcd", "aabbccddeefghi", "abcdefghhgfedecba", ]
 input_checks = [ "YES", "NO", "NO", "YES", ]
 
-for s, check in zip(input_values, input_checks):
-    result = isValid(s)
-    print("result=(%s)" % result)
-    assert result == check, "Check comparison failed"
+for test_func in test_functions:
+    print(test_func.__name__)
+    for s, check in zip(input_values, input_checks):
+        result = test_func(s)
+        print("result=(%s)" % result)
+        assert result == check, "Check comparison failed"
     print()
 
