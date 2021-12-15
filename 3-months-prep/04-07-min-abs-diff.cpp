@@ -87,13 +87,12 @@ void printMap(string varname, const map<A,B> m, const char delim=' ') {
 	//	}}}
 //	}}}
 
-//	TODO: 2021-12-14T23:05:10AEDT _hackerrank, C++, generating combinations(arr,2) for 10,000 element input, with a faster 'combinations' function (implement pseudo-functions given for combinations in python docs?) (other 'fundamental' combinations algorithm), problem comes from _hackerrank 04-07-min-abs-diff, translating python -> C++
-vector<int> combinations2_deltas(vector<int> arr) 
+vector<int> combinationpairs_deltas(vector<int> arr) 
+	//	{{{
 {
 	vector<int> result;
 	int n = arr.size();
 	int r = 2;
-
 	vector<bool> temp(n);
 	fill(temp.end()-r, temp.end(), true);
 	do {
@@ -114,14 +113,36 @@ vector<int> combinations2_deltas(vector<int> arr)
 		result.push_back(loop_delta);
 	} 
 	while (next_permutation(temp.begin(), temp.end()));
+	return result;
+}
+	//	}}}
 
+void combinationpairs_deltas_Backtracking_helper(vector<int>& result, const vector<int>& values, int start, vector<int>& cur, int n)
+{
+	if (cur.size() == n) {
+		result.push_back( abs(cur[1] - cur[0] ) );
+		return;
+	}
+	for (int i = start; i < values.size(); ++i) {
+		cur.push_back(values[i]);
+		combinationpairs_deltas_Backtracking_helper(result, values, i+1, cur, n);
+		cur.pop_back();
+	}
+}
+
+vector<int> combinationpairs_deltas_Backtracking(const vector<int>& arr)
+{
+	int n = 2;
+	vector<int> result;
+	vector<int> temp;
+	combinationpairs_deltas_Backtracking_helper(result, arr, 0, temp, n);
 	return result;
 }
 
-//	Correct for smaller inputs, impossibly slow for 10,000 element input
 int minimumAbsoluteDifference_i(vector<int> arr)
 {
-	vector<int> deltas = combinations2_deltas(arr);
+	//vector<int> deltas = combinationpairs_deltas(arr);
+	vector<int> deltas = combinationpairs_deltas_Backtracking(arr);
 	return *min_element(deltas.begin(), deltas.end());
 }
 
@@ -136,14 +157,13 @@ int minimumAbsoluteDifference_ii(vector<int> arr)
 }
 
 
-
 int main()
 {
-	//vector<function<int(vector<int>)>> test_functions = { minimumAbsoluteDifference_i, minimumAbsoluteDifference_ii, };
-	//vector<string> test_functions_names = { "minimumAbsoluteDifference_i", "minimumAbsoluteDifference_ii", };
+	vector<function<int(vector<int>)>> test_functions = { minimumAbsoluteDifference_i, minimumAbsoluteDifference_ii, };
+	vector<string> test_functions_names = { "minimumAbsoluteDifference_i", "minimumAbsoluteDifference_ii", };
 
-	vector<function<int(vector<int>)>> test_functions = { minimumAbsoluteDifference_ii, };
-	vector<string> test_functions_names = { "minimumAbsoluteDifference_ii", };
+	//vector<function<int(vector<int>)>> test_functions = { minimumAbsoluteDifference_ii, };
+	//vector<string> test_functions_names = { "minimumAbsoluteDifference_ii", };
 
 	assert (test_functions.size() == test_functions_names.size());
 
@@ -170,10 +190,8 @@ int main()
 			vector<int>& arr = input_values[i];
 			int check = input_checks[i];
 			printVector("arr", arr);
-
 			int result = test_func(arr);
 			cerr << "result=(" << result << ")\n";
-
 			assert (result == check);
 		}
 		cerr << "\n";
