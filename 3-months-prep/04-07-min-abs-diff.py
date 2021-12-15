@@ -18,8 +18,8 @@ def minimumAbsoluteDifference_ii(arr: List[int]) -> int:
     return min(deltas)
 
 
-#test_functions = [ minimumAbsoluteDifference_i, minimumAbsoluteDifference_ii, ]
-test_functions = [ minimumAbsoluteDifference_ii, ]
+test_functions = [ minimumAbsoluteDifference_i, minimumAbsoluteDifference_ii, ]
+#test_functions = [ minimumAbsoluteDifference_ii, ]
 
 #   input_values:
 #   {{{
