@@ -128,11 +128,11 @@ int minimumAbsoluteDifference_ii(vector<int> arr)
 
 int main()
 {
-	vector<function<int(vector<int>)>> test_functions = { minimumAbsoluteDifference_i, minimumAbsoluteDifference_ii, };
-	vector<string> test_functions_names = { "minimumAbsoluteDifference_i", "minimumAbsoluteDifference_ii", };
+	//vector<function<int(vector<int>)>> test_functions = { minimumAbsoluteDifference_i, minimumAbsoluteDifference_ii, };
+	//vector<string> test_functions_names = { "minimumAbsoluteDifference_i", "minimumAbsoluteDifference_ii", };
 
-	//vector<function<int(vector<int>)>> test_functions = { minimumAbsoluteDifference_ii, };
-	//vector<string> test_functions_names = { "minimumAbsoluteDifference_ii", };
+	vector<function<int(vector<int>)>> test_functions = { minimumAbsoluteDifference_ii, };
+	vector<string> test_functions_names = { "minimumAbsoluteDifference_ii", };
 
 	assert (test_functions.size() == test_functions_names.size());
 
