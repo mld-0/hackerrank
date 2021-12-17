@@ -87,37 +87,7 @@ void printMap(string varname, const map<A,B> m, const char delim=' ') {
 	//	}}}
 //	}}}
 
-vector<int> combinationpairs_deltas(vector<int> arr) 
-	//	{{{
-{
-	vector<int> result;
-	int n = arr.size();
-	int r = 2;
-	vector<bool> temp(n);
-	fill(temp.end()-r, temp.end(), true);
-	do {
-		vector<int> new_combination;
-		int A = INT_MAX;
-		int B = INT_MAX;
-		for (int i = 0; i < n; ++i) {
-			if (temp[i]) {
-				if (A == INT_MAX) {
-					A = arr[i];
-				} else if (B == INT_MAX) {
-					B = arr[i];
-					break;
-				} 
-			}
-		}
-		int loop_delta = abs(A-B);
-		result.push_back(loop_delta);
-	} 
-	while (next_permutation(temp.begin(), temp.end()));
-	return result;
-}
-	//	}}}
-
-void combinationpairs_deltas_Backtracking_helper(vector<int>& result, const vector<int>& values, int start, vector<int>& cur, int n)
+void combinationpairs_deltas_helper(vector<int>& result, const vector<int>& values, int start, vector<int>& cur, int n)
 {
 	if (cur.size() == n) {
 		result.push_back( abs(cur[1] - cur[0] ) );
@@ -125,24 +95,23 @@ void combinationpairs_deltas_Backtracking_helper(vector<int>& result, const vect
 	}
 	for (int i = start; i < values.size(); ++i) {
 		cur.push_back(values[i]);
-		combinationpairs_deltas_Backtracking_helper(result, values, i+1, cur, n);
+		combinationpairs_deltas_helper(result, values, i+1, cur, n);
 		cur.pop_back();
 	}
 }
 
-vector<int> combinationpairs_deltas_Backtracking(const vector<int>& arr)
+vector<int> combinationpairs_deltas(const vector<int>& arr)
 {
 	int n = 2;
 	vector<int> result;
 	vector<int> temp;
-	combinationpairs_deltas_Backtracking_helper(result, arr, 0, temp, n);
+	combinationpairs_deltas_helper(result, arr, 0, temp, n);
 	return result;
 }
 
 int minimumAbsoluteDifference_i(vector<int> arr)
 {
-	//vector<int> deltas = combinationpairs_deltas(arr);
-	vector<int> deltas = combinationpairs_deltas_Backtracking(arr);
+	vector<int> deltas = combinationpairs_deltas(arr);
 	return *min_element(deltas.begin(), deltas.end());
 }
 
