@@ -1,3 +1,4 @@
 TODO: 2021-11-03T21:00:37AEDT _hackerrank, assign course/week/number to each existing script
 TODO: 2021-12-08T15:42:50AEDT _hackerrank, C++, 03-06-max-perimeter, sorting multiple vectors together without using 'zip()/unzip()' functions sourced online
 TODO: 2021-12-09T21:35:06AEDT _hackerrank, 3-months-prep, script to (compile and) run each *.cpp file sequentially
+TODO: 2021-12-14T23:05:10AEDT _hackerrank, C++, generating combinations(arr,2) for 10,000 element input, with a faster 'combinations' function (implement pseudo-functions given for combinations in python docs?) (other 'fundamental' combinations algorithm), problem comes from _hackerrank 04-07-min-abs-diff, translating python -> C++
