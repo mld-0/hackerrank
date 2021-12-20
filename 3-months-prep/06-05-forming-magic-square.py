@@ -47,8 +47,8 @@ def square_transform_cost(square_to, square_from):
 
 def formingMagicSquare(s):
     result = math.inf
-    for square in possible_magic_squares:
-        trial = square_transform_cost(square, s)
+    for square_from in possible_magic_squares:
+        trial = square_transform_cost(s, square_from)
         result = min(trial, result)
     return result
 
