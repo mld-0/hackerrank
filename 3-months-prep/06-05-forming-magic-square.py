@@ -45,10 +45,10 @@ def square_transform_cost(square_to, square_from):
     return distance
             
 
-def formingMagicSquare(s):
+def formingMagicSquare(square):
     result = math.inf
     for square_from in possible_magic_squares:
-        trial = square_transform_cost(s, square_from)
+        trial = square_transform_cost(square, square_from)
         result = min(trial, result)
     return result
 
