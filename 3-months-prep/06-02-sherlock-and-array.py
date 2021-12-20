@@ -1,6 +1,6 @@
 from typing import List
 
-def balancedSums(arr: List[int]) -> int:
+def balancedSums(arr: List[int]) -> str:
     if sum(arr[1:]) == 0:
         return "YES"
     if sum(arr[:-1]) == 0:
