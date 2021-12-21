@@ -1,6 +1,6 @@
 import math
 
-def counterGame(n: int -> str):
+def counterGame(n: int) -> str:
     count = 0
     while n > 1:
         if math.log2(n) == int(math.log2(n)):
