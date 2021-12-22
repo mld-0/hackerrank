@@ -225,9 +225,9 @@ int main()
 	vector<string> input_checks = { "YES", "NO", "NO", "YES", };
 	assert (input_values.size() == input_checks.size());
 
-	int test_functions_i = 0;
+	int test_func_i = 0;
 	for (const auto &test_func: test_functions) {
-		cerr << test_functions_names[test_functions_i++] << "\n";
+		cerr << test_functions_names[test_func_i++] << "\n";
 		for (int i = 0; i < input_values.size(); ++i) {
 			string s = input_values[i];
 			string check = input_checks[i];
