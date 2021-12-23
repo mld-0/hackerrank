@@ -129,13 +129,18 @@ public:
 	int data;
 	SinglyLinkedListNode* next;
 
+	SinglyLinkedListNode()
+	{
+		this->next = NULL;
+	}
+
 	static SinglyLinkedListNode* from_list(vector<int> values)
 	{
 		if (values.size() == 0) {
 			return NULL;
 		}
-		SinglyLinkedListNode* result = new SinglyLinkedListNode();
-		SinglyLinkedListNode* curr = result;
+		SinglyLinkedListNode* head = new SinglyLinkedListNode();
+		SinglyLinkedListNode* curr = head;
 		SinglyLinkedListNode* prev = curr;
 		for (const auto& v: values) {
 			curr->data = v;
@@ -144,7 +149,7 @@ public:
 			curr= curr->next;
 		}
 		prev->next = NULL;
-		return result;
+		return head;
 	}
 
 	static vector<int> to_list(SinglyLinkedListNode* head)
