@@ -174,7 +174,6 @@ public:
 		while (curr != NULL) {
 			prev = curr;
 			curr = curr->next;
-			//cerr << "delete prev, prev->data=(" << prev->data << ")\n";
 			prev->next = NULL;
 			delete prev;
 		}
@@ -198,9 +197,10 @@ DoublyLinkedListNode* reverse(DoublyLinkedListNode* llist)
 
 int main()
 {
-	vector<vector<int>> input_values = { {1,2,3,4,5,6,7,8,9}, };
+	vector<vector<int>> input_values = { {1,2,3,4,5,6,7,8,9,}, {3,5,7,9,5,9,}, };
 
 	for (const auto input_list: input_values) {
+		printVector("input_list", input_list);
 		vector<int> check_list(input_list.begin(), input_list.end());
 		reverse(check_list.begin(), check_list.end());
 
@@ -213,6 +213,7 @@ int main()
 		assert (result_list == check_list);
 
 		DoublyLinkedListNode::free_linked_list(result);
+		cerr << "\n";
 	}
 
 	return 0;
